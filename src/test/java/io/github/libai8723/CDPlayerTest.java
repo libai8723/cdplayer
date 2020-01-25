@@ -8,7 +8,11 @@ package io.github.libai8723;
  */
 
 import static org.junit.Assert.*;
+
+// 这里的org.junit.Rule配合下面的StandardOutputStreamLog使用简直绝了，可以捕获向System.out中输出的东西，用作测试
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,10 +23,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //ContextConfiguration是spring的test.context中的注解，指明配置类在哪里
 @ContextConfiguration(classes=CDPlayerConfig.class)
 public class CDPlayerTest {
+    @Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
+    @Autowired
+    private MediaPlayer player;
+
     @Autowired
     private CompactDisc cd;
     @Test
     public void cdShouldNotBeNull() {
         assertNotNull(cd);
+    }
+
+    @Test
+    public void playCorrectCD() {
+        player.play();
+        assertEquals("Playing Stefanie Sun Yanzi's To be Continued...\n", systemOutRule.getLogWithNormalizedLineSeparator());
     }
 }

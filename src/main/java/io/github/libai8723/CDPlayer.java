@@ -3,7 +3,7 @@ package io.github.libai8723;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("cdPlayer")
 public class CDPlayer implements MediaPlayer {
     private CompactDisc cd;
 

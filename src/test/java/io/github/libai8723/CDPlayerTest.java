@@ -31,6 +31,7 @@ public class CDPlayerTest {
 
     @Autowired
     private CompactDisc cd;
+
     @Test
     public void cdShouldNotBeNull() {
         assertNotNull(cd);
